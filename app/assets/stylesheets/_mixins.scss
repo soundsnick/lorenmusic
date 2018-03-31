@@ -1,0 +1,18 @@
+@mixin card($background){
+  -webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  -moz-box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  background-color: $background;
+}
+@mixin focusCard{
+  -webkit-transition: box-shadow $transition;
+  -moz-transition: box-shadow $transition;
+  -ms-transition: box-shadow $transition;
+  -o-transition: box-shadow $transition;
+  transition: box-shadow $transition;
+  &:focus{
+    -webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    -moz-box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  }
+}

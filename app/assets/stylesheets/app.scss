@@ -1,0 +1,59 @@
+@import 'mixins';
+@import 'variables';
+
+.header{
+  @include card(#FFF);
+}
+.header__navigation{
+  flex: 1;
+  line-height: $header_height;
+  text-align: right;
+  &--link{
+    font-weight: 300;
+    font-size: 15px;
+    color: $theme_black;
+    display: inline-block;
+    margin-left: 20px;
+    -webkit-transition: color $transition;
+    -moz-transition: color $transition;
+    -ms-transition: color $transition;
+    -o-transition: color $transition;
+    transition: color $transition;
+    &:hover, &.active{
+      color: $theme_main;
+    }
+  }
+}
+.header__search--wrapper{
+  padding: 0 20px;
+  flex: 0 0 30%;
+}
+.logo{
+  font-weight: 300;
+  font-size: 1.5em;
+  color: $theme_black;
+  margin: 0;
+  line-height: $header_height;
+  b {
+    font-weight: inherit;
+    color: $theme_main;
+  }
+}
+.search-form{
+  display: flex;
+  height: 100%;
+  width: 100%;
+  &__field{
+    align-self: center;
+    display: block;
+    width: 100%;
+    padding: 10px 13px;
+    border-radius: 2px;
+    border: 1px solid rgba(0,0,0,0.1);
+    font-family: inherit;
+    font-weight: 200;
+    outline: none;
+    color: $theme-black;
+    @include focusCard;
+  }
+}

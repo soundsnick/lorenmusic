@@ -1,0 +1,31 @@
+@import 'variables';
+*{
+  box-sizing: border-box;
+}
+html,body{
+  height: 100%;
+}
+body{
+  margin: 0;
+  padding: 0;
+  font-family: "Gotham Pro", sans-serif;
+  background-color: $background;
+  color: #282828;
+}
+a{
+  text-decoration: none;
+  color: inherit;
+}
+.container{
+  max-width: 1300px;
+  margin: 0 auto;
+  position: relative;
+}
+.flex{
+  display: flex;
+}
+.title{
+  font-size: 2.2em;
+  padding: 1em 0;
+  color: $theme_black;
+}

@@ -1,0 +1,26 @@
+doctype html
+html
+  head
+    meta content=("text/html; charset=UTF-8") http-equiv="Content-Type" /
+    title Lorenmusic
+    = csrf_meta_tags
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+  body
+    header.header
+      .container.flex
+        .logo--wrapper
+          a href = '/'
+            h1.logo
+              = 'Loren'
+              b = 'Music'
+        .header__search--wrapper
+          form.search-form
+            input.search-form__field (placeholder = 'Название песни, автор' name = 'query')
+        nav.header__navigation
+          a#link_index.header__navigation--link (href = '#') = 'Главная'
+          - if !auth
+            a#link_signin.header__navigation--link (href = '#') = 'Войти'
+    = yield
+    javascript:
+      $('#link_#{@active_link}').addClass('active')
