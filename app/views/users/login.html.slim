@@ -1,0 +1,9 @@
+main.section-login
+  .container
+    div.login--wrapper
+      = form_with class: 'login-form', method: :post, url: login_action_path, local: true do |form|
+        h3.title = @title
+        = form.text_field :email, class: 'login-form__field', placeholder: 'Ваш Email'
+        = form.password_field :password, class: 'login-form__field', placeholder: 'Пароль'
+        = form.submit 'Войти', class: 'login-form__button'
+      a.form__link (href = register_view_path) = 'Регистрация'

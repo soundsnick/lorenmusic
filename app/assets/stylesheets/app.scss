@@ -3,6 +3,7 @@
 
 .header{
   @include card(#FFF);
+  z-index: 9999;
 }
 .header__navigation{
   flex: 1;
@@ -13,7 +14,7 @@
     font-size: 15px;
     color: $theme_black;
     display: inline-block;
-    margin-left: 20px;
+    margin-left: 30px;
     -webkit-transition: color $transition;
     -moz-transition: color $transition;
     -ms-transition: color $transition;
@@ -25,7 +26,7 @@
   }
 }
 .header__search--wrapper{
-  padding: 0 20px;
+  padding: 0 30px;
   flex: 0 0 30%;
 }
 .logo{
@@ -43,17 +44,156 @@
   display: flex;
   height: 100%;
   width: 100%;
+  position: relative;
+  &::after{
+    content: '\f002';
+    font-family: FontAwesome;
+    position: absolute;
+    right: 1px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 13px;
+    color: rgba(0,0,0,0.4);
+    padding: 0 15px;
+    background: #FFF;
+  }
   &__field{
     align-self: center;
-    display: block;
-    width: 100%;
-    padding: 10px 13px;
-    border-radius: 2px;
-    border: 1px solid rgba(0,0,0,0.1);
-    font-family: inherit;
-    font-weight: 200;
-    outline: none;
-    color: $theme-black;
+    @include formField;
     @include focusCard;
+    padding-right: 43px;
+  }
+}
+.section-login{
+  background-image: linear-gradient(to top, rgba(255,255,255,0.9), rgba(255,255,255,0.75)), url(bglogin.png);
+  background-size: auto 70%;
+  background-position: center;
+}
+.login--wrapper{
+  max-width: 300px;
+  margin: auto;
+  text-align: center;
+}
+.login-form{
+  &__field{
+    @include focusCard;
+    @include formField;
+    padding: 20px;
+    margin-bottom: 15px;
+  }
+  &__button{
+    @include card(#FFF);
+    @include formButton;
+  }
+}
+.form__link{
+  color: grey;
+  font-weight: 300;
+  font-size: 13px;
+  transition: color $transition;
+  &:hover{
+    color: $theme_black;
+  }
+}
+.grid--news{
+  display: grid;
+  grid-template-areas: 'main main mainer mainer';
+  grid-template-columns: repeat(4, minmax(100px, 1fr));
+  grid-gap: 15px;
+  .post-new:first-child{
+    grid-area: main;
+    min-height: 300px;
+    display: block!important;
+    &:before{
+      display: none;
+    }
+  }
+  .post-new:nth-child(2){
+    grid-area: mainer;
+    min-height: 300px;
+    display: block!important;
+    &:before{
+      display: none;
+    }
+  }
+}
+.post-new{
+  -webkit-background-size: cover;
+  background-size: 100%;
+  background-position: center;
+  display: flex;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+  height: 100%;
+  overflow: hidden;
+  -webkit-transition: background-size $transition;
+  -moz-transition: background-size $transition;
+  -ms-transition: background-size $transition;
+  -o-transition: background-size $transition;
+  transition: background-size $transition;
+  will-change: background-size;
+  &:hover{
+    background-size: 120%;
+    .post-new__content{
+      background: rgba(0,0,0,0.8);
+    }
+  }
+  @include card(grey);
+  &:before{
+    content: '';
+    display: block;
+    padding-top: 100%;
+  }
+  &__content{
+    padding: 30px;
+    background: rgba(0,0,0,0.6);
+    height: 100%;
+    transition: background $transition;
+    will-change: background;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    &--inner{
+      flex: 1;
+    }
+  }
+  &__title{
+    color: #FFF;
+    margin: 0;
+    font-size: 30px;
+    flex: 1;
+  }
+  &__author{
+    color: rgba(255,255,255,0.6);
+    font-weight: 300;
+    padding-top: 10px;
+    display: inline-block;
+  }
+  &__album{
+    color: rgba(255,255,255,0.8);
+    &~i{
+      vertical-align: middle;
+      font-size: 25px;
+      margin-left: 15px;
+      color: #fbfb74;
+    }
+  }
+  &__control{
+    &--play{
+      background: #FFF;
+      border: 0;
+      padding: 8px 20px;
+      border-radius: 2px 10px 2px 10px;
+      color: grey;
+      cursor: pointer;
+      font-size: 15px;
+      transition: background $transition, color $transition;
+      will-change: background, color;
+      &:hover{
+        background: $theme_black;
+        color: $theme_main;
+      }
+    }
   }
 }

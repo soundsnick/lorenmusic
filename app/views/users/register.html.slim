@@ -1,0 +1,11 @@
+main.section-login
+  .container
+    div.login--wrapper
+      = form_with class: 'login-form', method: :post, url: register_action_path, local: true do |form|
+        h3.title = @title
+        = form.text_field :name, class: 'login-form__field', placeholder: 'Ваше имя пользователя'
+        = form.text_field :email, class: 'login-form__field', placeholder: 'Ваш Email'
+        = form.password_field :password, class: 'login-form__field', placeholder: 'Пароль'
+        = form.password_field :password_confirm, class: 'login-form__field', placeholder: 'Подтверждение пароля'
+        = form.submit 'Зарегистрироваться', class: 'login-form__button'
+      a.form__link (href = login_view_path) = 'Уже есть аккаунт'

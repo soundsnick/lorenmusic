@@ -16,3 +16,37 @@
     box-shadow: 0 1px 2px rgba(0,0,0,0.1);
   }
 }
+@mixin formField{
+  display: block;
+  width: 100%;
+  padding: 10px 13px;
+  border-radius: 2px;
+  border: 1px solid rgba(0,0,0,0.1);
+  font-family: inherit;
+  font-weight: 200;
+  outline: none;
+  color: $theme-black;
+  font-size: 15px;
+}
+@mixin formButton{
+  padding: 15px 20px;
+  width: 100%;
+  border: 1px solid $theme_main;
+  background: $theme_main;
+  color: #FFF;
+  font-family: inherit;
+  color: #FFF;
+  border-radius: 3px;
+  margin-bottom: 20px;
+  cursor: pointer;
+  -webkit-transition: background $transition, color $transition, border-color $transition;
+  -moz-transition: background $transition, color $transition, border-color $transition;
+  -ms-transition: background $transition, color $transition, border-color $transition;
+  -o-transition: background $transition, color $transition, border-color $transition;
+  transition: background $transition, color $transition, border-color $transition;
+  &:hover{
+    background: #FFF;
+    color: $theme_main;
+    border-color: rgba(0,0,0,0.1);
+  }
+}

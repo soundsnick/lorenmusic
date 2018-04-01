@@ -1,6 +1,7 @@
 @import 'variables';
 *{
   box-sizing: border-box;
+  outline: none;
 }
 html,body{
   height: 100%;
@@ -11,6 +12,8 @@ body{
   font-family: "Gotham Pro", sans-serif;
   background-color: $background;
   color: #282828;
+  display: flex;
+  flex-direction: column;
 }
 a{
   text-decoration: none;
@@ -26,6 +29,19 @@ a{
 }
 .title{
   font-size: 2.2em;
-  padding: 1em 0;
+  margin: 0;
+  padding: 2em 0;
+  padding-bottom: 1em;
   color: $theme_black;
+}
+main{
+  flex: 1;
+}
+.notice{
+  background: rgba(0,0,0,0.7);
+  padding: 15px 0;
+  color: rgba(255,255,255,0.8);
+  font-weight: 300;
+  font-size: 14px;
+  text-align: center;
 }

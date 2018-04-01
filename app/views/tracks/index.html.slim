@@ -1,0 +1,20 @@
+main.section--feed
+  .container
+    h3.title = 'Новинки'
+    section.section--news
+      .grid--news
+        - @New.each do |post|
+          - @author = Users.find(post.author)
+          - @album = Albums.find(post.album)
+          div.post-new(style = "background-image: url(/covers/#{post.img});")
+            .post-new__content
+              .post-new__content--inner
+                header.post-new__header.flex
+                  h4.post-new__title = post.title
+                  div.post-new__album--wrapper
+                    span.post-new__album = @album.title
+                    i.fa.fa-dot-circle-o
+                span.post-new__author = @author.name
+              .post-new__control
+                button.post-new__control--play
+                  i.fa.fa-play
