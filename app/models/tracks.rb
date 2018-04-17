@@ -1,7 +1,4 @@
 class Tracks < ApplicationRecord
-  def self.search(title)
-    if title
-      where(title: "#{title.downcase}").take
-    end
-  end
+
+  scope :search, -> (title) { where("title ILIKE ?" , "%#{title}%")}
 end

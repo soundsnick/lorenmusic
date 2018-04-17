@@ -1,35 +1,66 @@
+- if auth
+  - @auth = authUser()
 doctype html
 html
   head
     meta content=("text/html; charset=UTF-8") http-equiv="Content-Type" /
-    title = @pageTitle
+    title = @pageTitle + ' - LorenMusic'
     = csrf_meta_tags
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   body
     header.header
       .container.flex
-        .logo--wrapper
+        .logo--wrapper#headerLogoTurbo(data-turbolinks-permanent)
           a href = '/'
             h1.logo
               = 'Loren'
               b = 'Music'
-        .header__search--wrapper
-          form.search-form
-            input.search-form__field (placeholder = 'Название трека, автор' name = 'query')
+        .header__search--wrapper#headerSearchTurbo(data-turbolinks-permanent)
+          = form_with id: 'searchForm', class: 'search-form', url: search_view_path, method: :get, remote: true do |form|
+            = form.text_field :query, class: 'search-form__field', placeholder: 'Название трека, автор', autocomplete: 'off'
         nav.header__navigation
-          = link_to 'Главная', root_path, id: 'link_index', class: 'header__navigation--link'
-          - if !auth
-            = link_to 'Войти', login_view_path, id: 'link_login', class: 'header__navigation--link'
+          div(style = "flex: 1")
+            = link_to 'Главная', root_path, id: 'link_index', class: 'header__navigation--link', remote: true
+            - if !auth
+              = link_to 'Войти', login_view_path, id: 'link_login', class: 'header__navigation--link', remote: true
           - if auth
-            = link_to 'Выйти', logout_path, class: 'header__navigation--link'
+            div.user-authorised--wrapper
+              .user-authorised__img--wrapper
+                img.user-authorised__img (src = '/avatars/#{@auth.avatar}')
+              nav.user-authorised__menu
+                = link_to 'Добавить трек', add_action_path, class: 'user-authorised__menu--item', remote: true
+                = link_to 'Мой плейлист', my_playlist_path, class: 'user-authorised__menu--item', remote: true
+                = link_to 'Выйти', logout_path, class: 'user-authorised__menu--item', remote: true
     - if notice
       div(class = 'notice')
         span.notice__text = notice
     = yield
+    .player--wrapper#playerLoren(data-turbolinks-permanent)
+      .player-progress
+        .player-progress__line
+      .player
+        .container.flex
+          .player__controls
+            button.player__play
+              i.fa.fa-play
+              i.fa.fa-pause
+          .player__loader
+            img src = '/assets/playerLoad.gif'
+          .player__info
+            h4.player__title
+            span.player__author
+          .player__timing
+            span.player__current
+            span.player__duration
+          .player__volume
+            .player__volume--box#volume
+            .player__actions
+              button.player__action.player__action--add#{ifActive}
+                i.fa.fa-plus
+                i.fa.fa-check
     javascript:
-      $('#link_#{@active_link}').addClass('active')
-      if($('.notice')){
-        function slideUpFunc(){ $('.notice').slideUp() }
-        setTimeout(slideUpFunc, 2000)
-      }
+      $(document).on('turbolinks:load', function (){
+        $('.header__navigation--link').removeClass('active')
+        $('#link_#{@active_link}').addClass('active')
+      })

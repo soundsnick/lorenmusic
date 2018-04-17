@@ -1,0 +1,97 @@
+- user_id = Users.search(session[:user_email])[0].id
+- @albums = Albums.searchByAuthor(user_id)
+main.section--new
+  .container
+    div.new--wrapper
+      h3.title = 'Добавить трек'
+      = form_with scope: :@track, class: 'new-form flex', id: 'newForm', method: :post, url: add_action_path, enctype: "multipart/form-data", remote: true do |form|
+        .new__info
+          label.new-form__img--wrapper(for = 'trackImg')
+            div
+              i.fa.fa-image
+          label.new-form__file(for = 'trackFile')
+            i.fa.fa-music
+            i.fa.fa-check
+          = form.text_field :title, class: 'login-form__field', placeholder: 'Название'
+          = form.text_field :lyrics_by, class: 'login-form__field', placeholder: 'Автор текста'
+          = form.text_field :music_by, class: 'login-form__field', placeholder: 'Композитор'
+          select.login-form__field (name="@track[album]")
+            option (value = "none") = 'Без альбома'
+            - @albums.each do |album|
+              option (value = album.id image = album.img) = album.title
+          = form.file_field :img, id: 'trackImg', hidden: 'hidden', accept: '.jpg', onchange: 'readImg(this);'
+          = form.file_field :file, id: 'trackFile', hidden: 'hidden', accept: '.mp3', onchange: 'fileForm(this)'
+          button (type="submit" name="commit" class="login-form__button" style="font-size: 25px;")
+            i.fa.fa-cloud-upload
+        .new__lyrics
+          = form.text_area :lyrics, class: 'login-form__text', placeholder: 'Текст песни'
+javascript:
+    function readImg(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('.new-form__img--wrapper')
+                    .css('background-image', 'url(' + e.target.result + ')').addClass('notEmpty');
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    function fileForm(input){
+        if(input.files && input.files[0]){
+            $('.new-form__file').addClass('active');
+        }
+        else{
+            $('.new-form__file').removeClass('active');
+        }
+    }
+
+    $('select').each(function () {
+        var $this = $(this), numberOfOptions = $(this).children('option').length;
+
+        $this.addClass('select-hidden');
+        $this.wrap('<div class="select"></div>');
+        $this.parents('.select').html($this);
+        $this.after('<div class="select-styled login-form__field"></div>');
+
+        var $styledSelect = $this.next('div.select-styled');
+        $styledSelect.text($this.children('option').eq(0).text());
+
+        var $list = $('<ul />', {
+            'class': 'select-options'
+        }).insertAfter($styledSelect);
+
+        for (var i = 0; i < numberOfOptions; i++) {
+            $('<li />', {
+                html: '<span>' + $this.children('option').eq(i).text() + '</span>',
+                rel: $this.children('option').eq(i).val()
+            }).appendTo($list);
+            if ($this.children('option').eq(i).attr('image') != null) {
+                $('li[rel=' + $this.children('option').eq(i).val() + ']').append('<div class="new__albums--img" style="background-image: url(/covers/' + $this.children("option").eq(i).attr("image") + ')"></div>');
+            }
+        }
+
+        var $listItems = $list.children('li');
+
+        $styledSelect.click(function (e) {
+            e.stopPropagation();
+            $('div.select-styled.active').not(this).each(function () {
+                $(this).removeClass('active').next('ul.select-options').hide();
+            });
+            $(this).toggleClass('active').next('ul.select-options').toggle();
+        });
+
+        $listItems.click(function (e) {
+            e.stopPropagation();
+            $styledSelect.text($(this).text()).removeClass('active');
+            $this.val($(this).attr('rel'));
+            $list.hide();
+        });
+
+        $(document).click(function () {
+            $styledSelect.removeClass('active');
+            $list.hide();
+        });
+
+    });

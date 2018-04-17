@@ -1,0 +1,26 @@
+main.section--feed
+  .container
+    h3.title = 'Треки'
+    section.section--search
+      .grid--list
+        - if @tracks.empty?
+          span.empty = 'Поиск не дал результатов'
+        - @tracks.each do |post|
+          - @author = Users.find(post.author)
+          - @album = Albums.find(post.album)
+          - if post.img.nil?
+            - post.img = @album.img
+          div.post.post-list.flex(data-id = post.id)
+            .post-list__img.post-img(style = 'background-image: linear-gradient(to top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(/covers/#{post.img})' data-id = post.id)
+              div.post__visualisation
+              .post-list__control
+                button.post-new__control--play.player__switch
+                  i.fa.fa-play
+            .post-list__content
+              .post-list__content--inner
+                header.post-list__header
+                  h4.post__title.post-list__title
+                    a(href = track_view_path(post.id)) = post.title
+                  span.post__author.post-list__author = @author.name
+                  div.post-list__album--wrapper
+                    span.post-list__album = 'Альбом: ' + @album.title

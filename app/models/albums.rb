@@ -1,7 +1,5 @@
 class Albums < ApplicationRecord
-  def self.search(title)
-    if title
-      where(title: "#{title.downcase}").take
-    end
-  end
+
+  scope :search, -> (title) { where("email ILIKE ?" , "%#{title}%")}
+  scope :searchByAuthor, -> (user_id) { where(author: user_id)}
 end

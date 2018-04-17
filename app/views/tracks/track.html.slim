@@ -1,0 +1,33 @@
+- @author = Users.find(@track["author"])
+- @album = Albums.find(@track["album"])
+main.section--track
+  .container.flex
+    .track
+      h3.title = 'Трек'
+      header.track__info
+        .flex
+          div(style = "flex: 1")
+            h1.track__title = @track['title']
+          .flex
+            button.track__play(data-id=@track['id'])
+              i.fa.fa-play
+        span.track__singer
+          strong = 'Исполнитель: '
+          = @track['author_name']
+        - if @track["img"].nil?
+          - @track["img"] = @album.img
+        div.track__img.post-img(style = "background-image: url(/covers/#{@track["img"]});" data-id=@track['id'])
+          .post__visualisation
+        div.track__authors
+          - if @track['lyrics_by']
+            span.track__author
+              strong = 'Автор текста: '
+              = @track['lyrics_by']
+          - if @track['music_by']
+            span.track__composer
+              strong = 'Композитор: '
+              = @track['music_by']
+    .track-lyrics
+      - if @track['lyrics'] == nil || @track['lyrics'] == ''
+        pre.track-lyrics__text = 'Текст не найден'
+      pre.track-lyrics__text = @track['lyrics']

@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   require 'digest'
+
   def signup
     if auth
       redirect_to root_path, notice: 'Вы уже вошли'
@@ -24,21 +25,21 @@ class UsersController < ApplicationController
   def register
     if form_params[:password] != form_params[:password_confirm]
       redirect_to register_view_path, notice: 'Пароли не совпадают'
-      binding.pry
-    end
-    @userEmail = Users.search(form_params[:email])
-    if !@userEmail
-      @user = Users.new(form_params.permit(:email, :name, :password))
-      @user.save
-      session[:user_email] = form_params[:email]
-      redirect_to root_path, notice: 'Добро пожаловать, ' + form_params[:name]
     else
-      redirect_to register_view_path, notice: 'Пользователь с данной электронной почтой уже зарегистрирован'
+      @userEmail = Users.search(form_params[:email])
+      if !@userEmail
+        @user = Users.new(form_params.permit(:email, :name, :password))
+        @user.save
+        session[:user_email] = form_params[:email]
+        redirect_to root_path, notice: 'Добро пожаловать, ' + form_params[:name]
+      else
+        redirect_to register_view_path, notice: 'Пользователь с данной электронной почтой уже зарегистрирован'
+      end
     end
   end
 
   def login
-    @user = Users.search(form_params[:email])
+    @user = Users.search(form_params[:email]).take
     if @user
       if @user.password == form_params[:password]
         session[:user_email] = form_params[:email]
