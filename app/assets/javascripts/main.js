@@ -16,8 +16,9 @@ $(document).on('turbolinks:load', function(){
     $('#loginForm').submit(function () {
         Turbolinks.visit('/login')
     })
-    $('#registerForm').submit(function () {
+    $('#registerForm').submit(function (res) {
         Turbolinks.visit('/register')
+        console.log(res)
     })
     $('.user-authorised__img').click(function(){
         $('.user-authorised__menu').fadeToggle(100)

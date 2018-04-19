@@ -6,7 +6,7 @@ module ApplicationHelper
 
   def authUser
     if auth
-      Users.search(session[:user_email]).take
+      User.find_by(email: session[:user_email])
     else
       return false
     end

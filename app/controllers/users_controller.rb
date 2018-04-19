@@ -26,9 +26,12 @@ class UsersController < ApplicationController
     if form_params[:password] != form_params[:password_confirm]
       redirect_to register_view_path, notice: 'Пароли не совпадают'
     else
-      @userEmail = Users.search(form_params[:email])
+      @userEmail = User.find_by(email: form_params[:email])
       if !@userEmail
-        @user = Users.new(form_params.permit(:email, :name, :password))
+        form = form_params.permit(:email, :name, :password)
+        form['avatar'] = 'noava.jpg'
+        binding.pry
+        @user = User.new(form)
         @user.save
         session[:user_email] = form_params[:email]
         redirect_to root_path, notice: 'Добро пожаловать, ' + form_params[:name]
@@ -39,7 +42,7 @@ class UsersController < ApplicationController
   end
 
   def login
-    @user = Users.search(form_params[:email]).take
+    @user = User.search(form_params[:email]).take
     if @user
       if @user.password == form_params[:password]
         session[:user_email] = form_params[:email]
@@ -59,10 +62,10 @@ class UsersController < ApplicationController
 
   def adminMake
     if check_owner
-      @user = Users.find(params[:id])
-      Users.update(params[:id], status: 0) if @user.status == 1
+      @user = User.find(params[:id])
+      User.update(params[:id], status: 0) if @user.status == 1
       if @user.status == 0 || @user.status.nil?
-        Users.update(params.permit(:id)[:id], status: 1)
+        User.update(params.permit(:id)[:id], status: 1)
       end
       redirect_to admin_path
     else

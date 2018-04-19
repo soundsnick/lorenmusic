@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get '/track/add', to: 'tracks#addView', as: :track_new_view
   post '/track/add', to: 'tracks#add', as: :add_action
   get '/playlist', to: 'tracks#playlist', as: :my_playlist
+  get '/author/:id(.:format)/tracks', to: 'tracks#userTracks', as: :my_tracks
 
   get '/login', to: 'users#signin', as: :login_view
   post '/login', to: 'users#login', as: :login_action
@@ -14,7 +15,10 @@ Rails.application.routes.draw do
   post '/register', to: 'users#register', as: :register_action
   get '/logout', to: 'users#logout', as: :logout
 
-  get '/api/tracks', to: 'api#tracks'
-  get '/api/playlist/change', to: 'api#playlistChange'
-  get '/api/playlist/check', to: 'api#playlistCheck'
+  get '/api', to: 'api#index'
+  get '/api/tracks.all', to: 'api#tracks_all'
+  get '/api/tracks.find', to: 'api#tracks_find'
+  get '/api/playlist.change', to: 'api#playlist_change'
+  get '/api/playlist.check', to: 'api#playlist_check'
+  get '/api/user.search', to: 'api#user_search'
 end

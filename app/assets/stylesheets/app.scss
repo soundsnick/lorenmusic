@@ -2,21 +2,21 @@
 @import 'variables';
 
 .header{
-  @include card(#FFF);
+  @include card($theme_darkblue);
   z-index: 9999;
 }
 .header__navigation{
-  flex: 1;
+  flex: 0 0 30%;
   line-height: $header_height;
   text-align: right;
   display: flex;
   align-items: flex-end;
   &--link{
     font-weight: 300;
-    font-size: 15px;
-    color: $theme_black;
+    font-size: 14px;
+    color: #8094ab;
     display: inline-block;
-    margin-left: 30px;
+    margin-left: 24px;
     -webkit-transition: color $transition;
     -moz-transition: color $transition;
     -ms-transition: color $transition;
@@ -29,17 +29,22 @@
 }
 .header__search--wrapper{
   padding: 0 30px;
-  flex: 0 0 30%;
+  flex: 1;
 }
 .logo{
-  font-weight: 300;
-  font-size: 1.5em;
-  color: $theme_black;
+  font-weight: 400;
+  font-size: 1.2em;
+  display: inline-block;
+  color: #fff;
+  text-transform: uppercase;
   margin: 0;
   line-height: $header_height;
   b {
     font-weight: inherit;
     color: $theme_main;
+  }
+  &--wrapper{
+    flex: 0 0 30%;
   }
 }
 .search-form{
@@ -55,31 +60,45 @@
     top: 50%;
     transform: translateY(-50%);
     font-size: 13px;
-    color: rgba(0,0,0,0.4);
+    color: rgba(255, 255, 255, 0.3);
     padding: 0 15px;
+    transition: color $transition;
   }
   &__field{
     align-self: center;
     @include formField;
-    @include focusCard;
     padding-right: 43px;
+    text-align: center;
+    color: #fff;
+    font-size: 14px;
+    padding: 12px 15px;
   }
 }
 .login--wrapper{
   max-width: 300px;
   margin: auto;
   text-align: center;
+
+}
+.select-styled{
+  border-radius: 0 0 6px 6px!important;
+  color: rgba(255,255,255,0.3)!important;
 }
 .login-form{
   &__field{
     @include focusCard;
     @include formField;
     padding: 20px;
-    margin-bottom: 15px;
+    border-radius: 0;
+    color: #FFF;
+    &.first-child{
+      border-radius: 6px 6px 0 0;
+    }
   }
   &__button{
-    @include card(#FFF);
+    @include card(#fff);
     @include formButton;
+    margin-top: 10px;
   }
   &__text{
     height: 100%;
@@ -87,6 +106,7 @@
     @include formField;
     padding: 20px;
     line-height: 1.5em;
+    border-radius: 6px;
   }
 }
 .form__link{
@@ -142,38 +162,43 @@
   }
   .post-new:first-child{
     grid-area: main;
+    transform: scale(.9);
+    &:hover{
+      transform: scale(.93);
+    }
   }
   .post-new:nth-child(2){
     grid-area: mainer;
+    &:hover{
+      transform: scale(1.03);
+    }
   }
   .post-new:nth-child(3){
     grid-area: maine;
+    transform: scale(.9);
+    &:hover{
+      transform: scale(.93);
+    }
   }
 }
 .post-new{
   -webkit-background-size: cover;
   background-size: 100%;
-  background-position: center;
+  background-position: top center;
   display: flex;
-  -webkit-border-radius: 2px;
-  -moz-border-radius: 2px;
-  border-radius: 2px;
+  border-radius: 6px;
   height: 100%;
   position: relative;
-  overflow: hidden;
-  -webkit-transition: background-size $transition;
-  -moz-transition: background-size $transition;
-  -ms-transition: background-size $transition;
-  -o-transition: background-size $transition;
-  transition: background-size $transition;
-  will-change: background-size;
+  transition: box-shadow $transition, transform $transition;
+  will-change: box-shadow, transform;
   &:hover{
-    background-size: 120%;
     .post-new__content{
       background: linear-gradient(to bottom, rgba(0,0,0,0.9), rgba(0,0,0,0)), rgba(0, 0, 0, 0.8);
     }
+    box-shadow: 0px 12px 15px rgba(0, 0, 0, 0.2);
   }
   @include card(grey);
+  box-shadow: none;
   &:before{
     content: '';
     display: block;
@@ -185,6 +210,7 @@
     padding: 30px;
     background: linear-gradient(to bottom, rgba(0,0,0,0.9), rgba(0,0,0,0)), rgba(0, 0, 0, 0.6);
     height: 100%;
+    border-radius: 6px;
     transition: background $transition;
     will-change: background;
     display: flex;
@@ -195,7 +221,7 @@
     }
   }
   &__title{
-    color: #FFF;
+    color: #fff;
     margin: 0;
     font-size: 20px;
     flex: 1;
@@ -242,7 +268,7 @@
     padding-top: 10px;
     padding-bottom: 10px;
     font-size: 20px;
-    color: $theme_black;
+    color: $theme_text;
     font-weight: 300;
   }
   &__album{
@@ -258,22 +284,22 @@
 }
 .track{
   padding-right: 50px;
-  border-right: 1px solid #ececec;
   min-height: 100vh;
   flex: 0 0 35%;
-  box-shadow: 15px -30px 21px -19px rgba(0, 0, 0, 0.15);
+  box-shadow: 15px -30px 21px -19px rgba(0,0,0, 0.8);
   &__author, &__singer, &__composer{
     @include trackInfo;
+    color: rgba(230, 230, 230, 0.65);
     strong{
       font-weight: 300;
-      color: $theme_black;
+      color: #6d6d6d;
     }
   }
   &__singer{
     margin-bottom: 15px;
   }
   &__title{
-    color: $theme_black;
+    color: $theme_text;
     margin-bottom: 10px;
     margin-top: 0;
     font-size: 46px;
@@ -301,7 +327,7 @@
       font-family: inherit;
       display: inline-block;
       padding: 0 20px;
-      line-height: 1.5em;
+      line-height: 1.7em;
       font-size: 18px;
       text-align: left;
       font-weight: 200;
@@ -317,10 +343,10 @@
   text-align: center;
   font-size: 22px;
   padding: 20px;
-  background: #ededed;
+  background: #233140;
   background-size: cover;
-  border-radius: 2px;
-  color: rgba(0,0,0,0.3);
+  border-radius: 6px;
+  color: rgba(255,255,255,0.3);
   background-position: center;
   transition: background 0.2s, color 0.2s;
   will-change: background,color;
@@ -344,7 +370,7 @@
     }
   }
   &:hover{
-    color: rgba(0,0,0,0.5);
+    color: rgba(255,255,255,0.5);
   }
   div{
     flex: 1;
@@ -356,14 +382,14 @@
   padding: 15px 0;
   display: block;
   margin-bottom: 10px;
-  background: #ededed;
-  border-radius: 2px;
+  background: #233140;
+  border-radius: 6px;
   font-size: 22px;
-  color: rgba(0,0,0,0.3);
+  color: rgba(255,255,255,0.3);
   cursor: pointer;
   transition: color $transition;
   &:hover{
-    color: rgba(0,0,0,0.5);
+    color: rgba(255,255,255,0.5);
   }
   .fa-check{
     display: none;
@@ -430,7 +456,7 @@
   &-options{
     display: none;
     list-style: none;
-    background: #FFF;
+    background: #fff;
     border-radius: 2px;
     padding: 0;
     margin-top: 0;
@@ -463,6 +489,7 @@
 .user-authorised{
   &--wrapper{
     height: 70px;
+    margin-left: 30px;
   }
   &__img{
     height: 100%;
@@ -473,16 +500,24 @@
     -ms-user-select: none;
     user-select: none;
     -webkit-user-drag: none;
+    display: block;
     &--wrapper{
       height: 100%;
-      padding: 15px;
+      padding: 18px;
+    }
+  }
+  &__title{
+    h3{
+      margin: 0;
+      line-height: 2em;
+      font-size: 1.4em;
     }
   }
   &__menu{
     display: none;
     padding: 10px 0;
-    background: #FFF;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background: #1f2b38;
+    box-shadow: 0 6px 9px rgba(0, 0, 0, 0.3);
     max-width: 180px;
     border: 1px solid rgba(0,0,0,0.1);
     margin-top: 1px;
@@ -499,7 +534,7 @@
       top: -16px;
       right: 29px;
       line-height: 1em;
-      color: #FFF;
+      color: #1f2b38;
       font-size: 25px;
       text-shadow: 0 -1px 1px rgba(0,0,0,0.2);
     }
@@ -508,11 +543,11 @@
       display: block;
       font-size: 14px;
       font-weight: 300;
-      color: #5d5d5d;
+      color: #b1b1b1;
       transition: background $transition, color $transition;
       &:hover{
-        color: $theme_black;
-        background: rgba(0,0,0,0.05);
+        color: #FFF;
+        background: rgba(255,255,255, 0.02);
       }
     }
   }

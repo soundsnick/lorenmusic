@@ -1,5 +1,5 @@
-- @author = Users.find(@track["author"])
-- @album = Albums.find(@track["album"])
+- @author = User.find(@track["author"])
+- @album = Album.find(@track["album"])
 main.section--track
   .container.flex
     .track
@@ -19,7 +19,7 @@ main.section--track
         div.track__img.post-img(style = "background-image: url(/covers/#{@track["img"]});" data-id=@track['id'])
           .post__visualisation
         div.track__authors
-          - if @track['lyrics_by']
+          - unless @track['lyrics_by'].nil?
             span.track__author
               strong = 'Автор текста: '
               = @track['lyrics_by']

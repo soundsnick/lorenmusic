@@ -8,14 +8,15 @@ class ApplicationController < ActionController::Base
   end
 
   def check_admin
-    @user = Users.search(session[:user_email]).take
+    @user = User.find_by(email: session[:user_email])
     @user.status == 1 ? true : false
   end
 
   def authUser
     if auth
-      Users.search(session[:user_email]).take
+      User.find_by(email: session[:user_email])
+    else
+      return false
     end
-    else return false
   end
 end

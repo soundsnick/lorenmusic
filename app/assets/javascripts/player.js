@@ -16,7 +16,7 @@ $(document).ready(function(){
         let postId = $('.player').data('id')
         if(postId != null) {
             $.ajax({
-                url: '/api/playlist/change',
+                url: '/api/playlist.change',
                 type: "GET",
                 data: {'id': postId},
                 success: function (response) {
@@ -25,6 +25,9 @@ $(document).ready(function(){
                     }
                     else if(response == 'removed'){
                         $('.player__action--add').removeClass('active')
+                    }
+                    else if(response == 'unauth'){
+                        Turbolinks.visit('/login')
                     }
                     else{
                         return false;
@@ -47,7 +50,7 @@ $(document).ready(function(){
     })
     function takeAudio(postId){
         $.ajax({
-            url:  '/api/tracks',
+            url:  '/api/tracks.find',
             type:     "GET",
             data: {'id': postId},
             beforeSend: function(){
@@ -69,7 +72,7 @@ $(document).ready(function(){
                 let volume = (100 * currentVolume) / 1
                 $('.player__volume--box__line').css('width', volume + '%')
                 $.ajax({
-                    url: '/api/playlist/check',
+                    url: '/api/playlist.check',
                     type: "GET",
                     data: {'id': postId},
                     success: function (response) {
@@ -114,6 +117,11 @@ $(document).ready(function(){
         var currentTimeFormatted = timeFormatting(currentTime)
         if ($('.player__current').text() != currentTimeFormatted) {
             $('.player__current').text(currentTimeFormatted)
+        }
+        var buffered = audioPlayer.buffered;
+        if(buffered.length) {
+            var loaded = (100 * buffered.end(0)) / audioPlayer.duration
+            $('.player-progress__buffer').width(loaded + '%')
         }
     }
     audioPlayer.onvolumechange = function () {
@@ -238,6 +246,7 @@ $(document).ready(function(){
         $('.player__switch').click(function () {
             let postId = $(this).parents('.post').data('id')
             takeAudio(postId)
+            visualisationPlayer(postId)
         })
         $('.track__play').click(function(){
             let postId = $(this).data('id')

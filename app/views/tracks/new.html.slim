@@ -1,10 +1,10 @@
-- user_id = Users.search(session[:user_email])[0].id
-- @albums = Albums.searchByAuthor(user_id)
+- user_id = User.search(session[:user_email])[0].id
+- @albums = Album.searchByAuthor(user_id)
 main.section--new
   .container
     div.new--wrapper
       h3.title = 'Добавить трек'
-      = form_with scope: :@track, class: 'new-form flex', id: 'newForm', method: :post, url: add_action_path, enctype: "multipart/form-data", remote: true do |form|
+      = form_with scope: :track, class: 'new-form flex', id: 'newForm', method: :post, url: add_action_path, enctype: "multipart/form-data", remote: true do |form|
         .new__info
           label.new-form__img--wrapper(for = 'trackImg')
             div
@@ -12,10 +12,10 @@ main.section--new
           label.new-form__file(for = 'trackFile')
             i.fa.fa-music
             i.fa.fa-check
-          = form.text_field :title, class: 'login-form__field', placeholder: 'Название'
+          = form.text_field :title, class: 'login-form__field first-child', placeholder: 'Название'
           = form.text_field :lyrics_by, class: 'login-form__field', placeholder: 'Автор текста'
           = form.text_field :music_by, class: 'login-form__field', placeholder: 'Композитор'
-          select.login-form__field (name="@track[album]")
+          select.login-form__field (name="track[album]")
             option (value = "none") = 'Без альбома'
             - @albums.each do |album|
               option (value = album.id image = album.img) = album.title

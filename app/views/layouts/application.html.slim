@@ -1,5 +1,5 @@
 - if auth
-  - @auth = authUser()
+  - @auth = authUser
 doctype html
 html
   head
@@ -22,6 +22,7 @@ html
         nav.header__navigation
           div(style = "flex: 1")
             = link_to 'Главная', root_path, id: 'link_index', class: 'header__navigation--link', remote: true
+            = link_to 'О нас', root_path, id: 'link_about', class: 'header__navigation--link', remote: true
             - if !auth
               = link_to 'Войти', login_view_path, id: 'link_login', class: 'header__navigation--link', remote: true
           - if auth
@@ -29,7 +30,10 @@ html
               .user-authorised__img--wrapper
                 img.user-authorised__img (src = '/avatars/#{@auth.avatar}')
               nav.user-authorised__menu
+                header.user-authorised__title
+                  h3 = authUser["name"]
                 = link_to 'Добавить трек', add_action_path, class: 'user-authorised__menu--item', remote: true
+                = link_to 'Мои треки', my_tracks_path(@auth.id), class: 'user-authorised__menu--item', remote: true
                 = link_to 'Мой плейлист', my_playlist_path, class: 'user-authorised__menu--item', remote: true
                 = link_to 'Выйти', logout_path, class: 'user-authorised__menu--item', remote: true
     - if notice
@@ -38,6 +42,7 @@ html
     = yield
     .player--wrapper#playerLoren(data-turbolinks-permanent)
       .player-progress
+        .player-progress__buffer
         .player-progress__line
       .player
         .container.flex

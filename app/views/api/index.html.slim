@@ -1,0 +1,48 @@
+main.section--api
+  .container
+    h3.title = 'Open API'
+    section.api-methods
+      h4.subtitle = 'Tracks'
+      div.api-methods--wrapper
+        table.api__table
+          tr.api__table--header
+            td = 'Method name'
+            td = 'Описание'
+            td = 'Тип запроса'
+            td = 'Параметры'
+            td = 'Ответ'
+          div
+            tr
+              td = 'tracks.all'
+              td = 'Вывод всех треков из базы данных'
+              td = 'GET'
+              td = 'null'
+              td = 'json'
+            tr
+              td = 'tracks.find'
+              td = 'Вывод конкретного трека по id'
+              td = 'GET'
+              td = 'id'
+              td = 'json'
+      h4.subtitle = 'Playlist'
+      div.api-methods--wrapper
+        table.api__table
+          tr.api__table--header
+            td = 'Method name'
+            td = 'Описание'
+            td = 'Тип запроса'
+            td = 'Параметры'
+            td = 'Ответ'
+          div
+            tr
+              td = 'playlist.check'
+              td = 'Проверка наличия трека в плейлисте'
+              td = 'GET'
+              td = 'id'
+              td = 'string'
+            tr
+              td = 'playlist.change'
+              td = 'Добавление/Удаление трека из плейлиста пользователя'
+              td = 'GET'
+              td = 'id'
+              td = 'string'

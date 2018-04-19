@@ -4,10 +4,10 @@ main.section--feed
     section.section--news
       .grid--news
         - @new.each do |post|
-          - @author = Users.find(post.author)
-          - @album = Albums.find(post.album)
+          - author = User.find(post.author)
+          - album = Album.find(post.album)
           - if post.img.nil?
-            - post.img = @album.img
+            - post.img = album.img
           div.post.post-new.post-img(style = "background-image: url(/covers/#{post.img});" data-id = post.id)
             .post-new__content
               .post-new__content--inner
@@ -15,9 +15,9 @@ main.section--feed
                   h4.post__title.post-new__title
                     a(href = track_view_path(post.id)) = post.title
                   div.post-new__album--wrapper
-                    span.post-new__album = @album.title
+                    span.post-new__album = album.title
                     i.fa.fa-dot-circle-o
-                span.post__author.post-new__author = @author.name
+                span.post__author.post-new__author = author.name
               .post-new__control
                 button.post-new__control--play.player__switch
                   i.fa.fa-play

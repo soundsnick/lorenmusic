@@ -6,8 +6,8 @@ main.section--feed
         - if @tracks.empty?
           span.empty = 'Поиск не дал результатов'
         - @tracks.each do |post|
-          - @author = Users.find(post.author)
-          - @album = Albums.find(post.album)
+          - @author = User.find(post.author)
+          - @album = Album.find(post.album)
           - if post.img.nil?
             - post.img = @album.img
           div.post.post-list.flex(data-id = post.id)
