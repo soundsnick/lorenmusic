@@ -1,6 +1,28 @@
 main.section--api
   .container
-    h3.title = 'Open API'
+    h3.title = @pageTitle
+    section.api-getting-started
+      p = 'Все методы относятся к API URL. Подключение к API производится через XMLHttpRequest или Curl.'
+      code
+        h6 = 'API URL'
+        pre = root_url + 'api/'
+      code
+        h6 = 'XMLHttpRequest (JavaScript)'
+        pre
+          = '$.ajax({'
+          br
+          = ' url: "' + root_url + 'api/tracks.all",'
+          br
+          = ' type: "GET",'
+          br
+          = ' data: {"access_token": ACCESS_TOKEN},'
+          br
+          = ' success: function (response) {},'
+          br
+          = ' error: function (response) {}'
+          br
+          = '})'
+    h3.title = 'Методы'
     section.api-methods
       h4.subtitle = 'Tracks'
       div.api-methods--wrapper
@@ -33,16 +55,42 @@ main.section--api
             td = 'Тип запроса'
             td = 'Параметры'
             td = 'Ответ'
-          div
-            tr
-              td = 'playlist.check'
-              td = 'Проверка наличия трека в плейлисте'
-              td = 'GET'
-              td = 'id'
-              td = 'string'
-            tr
-              td = 'playlist.change'
-              td = 'Добавление/Удаление трека из плейлиста пользователя'
-              td = 'GET'
-              td = 'id'
-              td = 'string'
+          tr
+            td = 'playlist.check'
+            td = 'Проверка наличия трека в плейлисте'
+            td = 'GET'
+            td = 'id, user_id'
+            td = 'string'
+          tr
+            td = 'playlist.change'
+            td = 'Добавление/Удаление трека из плейлиста пользователя'
+            td = 'GET'
+            td = 'id, user_id'
+            td = 'string'
+      h4.subtitle = 'Users'
+      div.api-methods--wrapper
+        table.api__table
+          tr.api__table--header
+           td = 'Method name'
+           td = 'Описание'
+           td = 'Тип запроса'
+           td = 'Параметры'
+           td = 'Ответ'
+          tr
+            td = 'user.all'
+            td = 'Все пользователи'
+            td = 'GET'
+            td = 'null'
+            td = 'json[json[user]]'
+          tr
+            td = 'user.auth'
+            td = 'Авторизация пользователя'
+            td = 'GET'
+            td = 'email, password'
+            td = 'json[user]'
+          tr
+            td = 'user.search'
+            td = 'Поиск пользователя по электронной почте'
+            td = 'GET'
+            td = 'email'
+            td = 'json[user]'

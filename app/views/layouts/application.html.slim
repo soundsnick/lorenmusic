@@ -4,7 +4,8 @@ doctype html
 html
   head
     meta content=("text/html; charset=UTF-8") http-equiv="Content-Type" /
-    title = @pageTitle + ' - LorenMusic'
+    meta name="viewport" content=("scale=1")
+    title = @page_title + ' - LorenMusic'
     = csrf_meta_tags
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
@@ -69,3 +70,8 @@ html
         $('.header__navigation--link').removeClass('active')
         $('#link_#{@active_link}').addClass('active')
       })
+      var ACCESS_TOKEN = '1-14-40ernazar'
+      var USER
+    - if auth
+      javascript:
+        USER = #{authUser.id}

@@ -1,8 +1,9 @@
+# class: TrackController
 class TracksController < ApplicationController
   require 'digest'
 
   def index
-    @pageTitle = 'Главная'
+    @page_title = 'Главная'
     @active_link = 'index'
     @new = Track.limit(3)
   end
@@ -14,8 +15,7 @@ class TracksController < ApplicationController
       @track = Track.find(params[:id])
       @track = @track.as_json.merge('author_name' => User.find(@track.author).name)
 
-
-      @pageTitle = @track['title']
+      @page_title = @track['title']
       render 'track'
     else
       redirect_to root_path
@@ -59,18 +59,18 @@ class TracksController < ApplicationController
   end
 
   def addView
-    @pageTitle = 'Добавить трек'
+    @page_title = 'Добавить трек'
     render 'new'
   end
 
   def search
-    @pageTitle = 'Поиск: ' + params[:query]
+    @page_title = 'Поиск: ' + params[:query]
     @tracks = Track.search(params[:query])
   end
 
   def playlist
     if auth
-      @pageTitle = 'Мой плейлист'
+      @page_title = 'Мой плейлист'
       @user = User.find_by(email: session[:user_email])
       tracksFromPlaylist = Playlist.search(@user.id)
       trackIds = []
@@ -88,7 +88,7 @@ class TracksController < ApplicationController
 
   def userTracks
     author = User.find(params[:id])
-    @pageTitle = 'Треки ' + author.name
+    @page_title = 'Треки ' + author.name
     @tracks = Track.searchByAuthor(author.id)
     render 'playlist'
   end

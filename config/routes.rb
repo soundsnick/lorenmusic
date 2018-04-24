@@ -20,5 +20,8 @@ Rails.application.routes.draw do
   get '/api/tracks.find', to: 'api#tracks_find'
   get '/api/playlist.change', to: 'api#playlist_change'
   get '/api/playlist.check', to: 'api#playlist_check'
+  get '/api/user.all', to: 'api#user_all'
   get '/api/user.search', to: 'api#user_search'
+  get '/api/user.auth', to: 'api#user_auth'
+
 end

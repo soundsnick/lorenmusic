@@ -34,6 +34,7 @@
 *{
   box-sizing: border-box;
   outline: none;
+  -webkit-tap-highlight-color: transparent;
 }
 html,body{
   height: 100%;
@@ -340,5 +341,25 @@ main{
       font-weight: 300;
       color: #FFF;
     }
+  }
+}
+code{
+  background: #333333;
+  padding: 12px;
+  margin-top: 2px;
+  display: block;
+  border-radius: 2px;
+  margin-bottom: 10px;
+  text-shadow: 0 2px 2px rgba(0,0,0,0.5);
+  h6{
+    margin: 0;
+    font-size: 18px;
+    margin-bottom: 5px;
+  }
+  pre{
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    margin: 0;
+    line-height: 1.7em;
   }
 }

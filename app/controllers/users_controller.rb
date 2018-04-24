@@ -6,7 +6,7 @@ class UsersController < ApplicationController
       redirect_to root_path, notice: 'Вы уже вошли'
     else
       @title = 'Регистрация'
-      @pageTitle = @title
+      @page_title = @title
       render 'register'
     end
   end
@@ -17,7 +17,7 @@ class UsersController < ApplicationController
     else
       @active_link = 'login'
       @title = 'Войти'
-      @pageTitle = @title
+      @page_title = @title
       render 'login'
     end
   end
